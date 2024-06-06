@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="src/style.css">
+  <title>Project-Animal-Farm</title>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Animal Farm</h1>
+    </header>
+    <section id="enclosure-output">
+
+    </section>
+    <section id="animal-form">
+      <select id="select-animal-type">
+        <option value="Lion">🦁 Lion (Mammal)</option>
+        <option value="Elephant">🐘 Elephant (Mammal)</option>
+        <option value="Snake">🐍 Snake (Reptile)</option>
+        <option value="Turtle">🐢 Turtle (Reptile)</option>
+        <option value="Parrot">🐦 Parrot (Bird)</option>
+        <option value="Eagle">🦅 Eagle (Bird)</option>
+        <option value="Fish">🐠 Fish (Fish)</option>
+        <option value="Shark">🦈 Shark (Fish)</option>
+      </select>
+      <form id="submit-new-animal">
+        <div id="continent-enclosure-output"></div>
+        <input id="animal-name-input" type="text" placeholder="Animal Name" required>
+        <input id="animal-year-of-birth-input" type="text" placeholder="Year Of Birth" required>
+        <input id="animal-special-needs-input" type="text" placeholder="Special Needs" required>
+        <button type="submit">Create Animal</button>
+      </form>
+    </section>
+  </main>
+  <script type="module" src="src/main.ts"></script>
+</body>
+</html>
