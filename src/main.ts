@@ -8,6 +8,9 @@ import { Parrot } from "./modules/Instances/Parrot";
 import { Turtle } from "./modules/Instances/Turtle";
 import { Eagle } from "./modules/Instances/Eagle";
 import { Fishes } from "./modules/Instances/Fish";
+import { ReptileHouse } from "./modules/Instances/ReptileHouse";
+import { SavannahHabitat } from "./modules/Instances/SavannahHabitat";
+import { JungleHabitat } from "./modules/Instances/JungleHabitat";
 
 
 const submitNewAnimalForm = document.getElementById("submit-new-animal") as HTMLFormElement;
@@ -25,6 +28,23 @@ submitNewAnimalForm.addEventListener("submit",(event:Event) => {
 });
 
 let allAnimals: Animal[] = [];
+
+function sortAnimalsToEnclosure(){
+allAnimals.forEach(Animal => {
+    if(Animal instanceof Lion){
+        aquaticHabitat.push(Animal);
+    } else if (Animal instanceof ReptileHouse) {
+        reptileHouse.push(Animal);
+    } else if (Animal instanceof SavannahHabitat)
+        savannahHabitat.push(Animal);
+    else if (Animal instanceof JungleHabitat) {
+        jungleHabitat.push(Animal);
+    } else{
+        console.log("No free Enclosure");
+    }
+});
+}
+
 let aquaticHabitat: Animal[] = [
     {emoji: "🤡", name: "Nemo", yearOfBirth: "1872", continents: ["Africa", "Asia"], specialNeeds: ["freedom", "his friends"], enclosureId: 2},
     {emoji: "🐡", name: "Puffer", yearOfBirth: "1999", continents: ["Africa", "South-America"], specialNeeds: ["silence", "water"], enclosureId: 2}
@@ -46,18 +66,18 @@ let reptileHouse: Animal[] = [
 ];
 
 function outputAllAnimalsInEnclosures(enclosureArray:Animal[]){
-    let aquaticOutput = enclosureOutputArea.appendChild(document.createElement("div"))
+    let singleEnclosureOutputWrapper = enclosureOutputArea.appendChild(document.createElement("div"));
+    singleEnclosureOutputWrapper.setAttribute("class", "single-enclosure-output-wrapper");
+    let singleEnclosureOutputWrapperHeadline = singleEnclosureOutputWrapper.appendChild(document.createElement("h2"));
+    singleEnclosureOutputWrapperHeadline.textContent = enclosureArray.toString();
+
     enclosureArray.forEach(animal  => {
         let animalOutput = document.createElement("p");
-        animalOutput.textContent = `${animal.emoji} ${animal.name} (Geburtsjahr: ${animal.yearOfBirth}), Kontinente: ${animal.continents.join(", ")}, Besondere Bedürfnisse: ${animal.specialNeeds.join(", ")}, Gehege-ID: ${animal.enclosureId}`;
-        aquaticOutput.appendChild(animalOutput);
+        animalOutput.textContent = `${animal.emoji} ${animal.name} (Geburtsjahr: ${animal.yearOfBirth}), Kontinente: ${animal.continents}, Besondere Bedürfnisse: ${animal.specialNeeds}, Gehege-ID: ${animal.enclosureId}`;
+
+        singleEnclosureOutputWrapper.appendChild(animalOutput);
     });
 }
-
-outputAllAnimalsInEnclosures(aquaticHabitat);
-outputAllAnimalsInEnclosures(jungleHabitat);
-outputAllAnimalsInEnclosures(savannahHabitat);
-outputAllAnimalsInEnclosures(reptileHouse);
 
 
 function getAnimalFromInputForm(){
@@ -97,6 +117,11 @@ function getAnimalFromInputForm(){
     } else{
         console.log("invalid Animal");
     }
+    sortAnimalsToEnclosure();
+    outputAllAnimalsInEnclosures(aquaticHabitat);
+outputAllAnimalsInEnclosures(jungleHabitat);
+outputAllAnimalsInEnclosures(savannahHabitat);
+outputAllAnimalsInEnclosures(reptileHouse);
     submitNewAnimalForm.reset();
     console.log(allAnimals);
 };
